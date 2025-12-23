@@ -7,27 +7,32 @@
     <title>Kshoura - Ayushkarma Panchanga</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1 class="title">Kshoura</h1>
-            <p class="subtitle">Ayushkarma Panchanga</p>
+            <button class="lang-toggle" id="langToggle" aria-label="Switch Language">
+                <span class="lang-text">EN</span>
+            </button>
+            <h1 class="title" data-i18n="title">ಕ್ಷೌರ</h1>
+            <p class="subtitle" data-i18n="subtitle">ಆಯುಷ್ಕರ್ಮ ಪಂಚಾಂಗ</p>
         </header>
 
         <main class="main">
             <!-- Date Display -->
             <div class="date-card">
-                <span class="date-label">Today</span>
+                <span class="date-label" data-i18n="today">ಇಂದು</span>
                 <span class="date-value" id="currentDate"></span>
             </div>
 
             <!-- Result Card -->
             <div class="result-card" id="resultCard">
                 <div class="result-icon" id="resultIcon"></div>
-                <h2 class="result-title" id="resultTitle">Loading...</h2>
+                <h2 class="result-title" id="resultTitle" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</h2>
                 <p class="result-description" id="resultDescription"></p>
                 <div class="match-count" id="matchCount"></div>
             </div>
@@ -35,17 +40,17 @@
             <!-- Panchanga Details -->
             <div class="panchanga-grid">
                 <div class="panchanga-item" id="thithiCard">
-                    <span class="panchanga-label">Thithi</span>
+                    <span class="panchanga-label" data-i18n="thithi">ತಿಥಿ</span>
                     <span class="panchanga-value" id="thithiValue">-</span>
                     <span class="panchanga-status" id="thithiStatus"></span>
                 </div>
                 <div class="panchanga-item" id="nakshatraCard">
-                    <span class="panchanga-label">Nakshatra</span>
+                    <span class="panchanga-label" data-i18n="nakshatra">ನಕ್ಷತ್ರ</span>
                     <span class="panchanga-value" id="nakshatraValue">-</span>
                     <span class="panchanga-status" id="nakshatraStatus"></span>
                 </div>
                 <div class="panchanga-item" id="vasaraCard">
-                    <span class="panchanga-label">Vasara</span>
+                    <span class="panchanga-label" data-i18n="vasara">ವಾರ</span>
                     <span class="panchanga-value" id="vasaraValue">-</span>
                     <span class="panchanga-status" id="vasaraStatus"></span>
                 </div>
@@ -55,41 +60,41 @@
             <div class="legend">
                 <div class="legend-item">
                     <span class="legend-dot uttama"></span>
-                    <span>Uttama (3 match)</span>
+                    <span data-i18n="uttamaLeg">ಉತ್ತಮ (3 ಹೊಂದಾಣಿಕೆ)</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-dot madhyama"></span>
-                    <span>Madhyama (2 match)</span>
+                    <span data-i18n="madhyamaLeg">ಮಧ್ಯಮ (2 ಹೊಂದಾಣಿಕೆ)</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-dot adhama"></span>
-                    <span>Adhama (1 match)</span>
+                    <span data-i18n="adhamaLeg">ಅಧಮ (1 ಹೊಂದಾಣಿಕೆ)</span>
                 </div>
                 <div class="legend-item">
                     <span class="legend-dot varjya"></span>
-                    <span>Varjya (0 match)</span>
+                    <span data-i18n="varjyaLeg">ವರ್ಜ್ಯ (0 ಹೊಂದಾಣಿಕೆ)</span>
                 </div>
             </div>
 
             <!-- Upcoming Auspicious Days -->
             <div class="upcoming-section">
-                <h3 class="upcoming-title">📅 Upcoming Auspicious Days</h3>
-                <p class="upcoming-subtitle">Best days for Kshoura in the next 15 days</p>
+                <h3 class="upcoming-title" data-i18n="upcomingTitle">📅 ಮುಂಬರುವ ಶುಭ ದಿನಗಳು</h3>
+                <p class="upcoming-subtitle" data-i18n="upcomingSubtitle">ಮುಂದಿನ 15 ದಿನಗಳಲ್ಲಿ ಕ್ಷೌರಕ್ಕೆ ಉತ್ತಮ ದಿನಗಳು</p>
                 <div class="upcoming-list" id="upcomingList">
-                    <div class="loading-text">Loading...</div>
+                    <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
                 </div>
                 <!-- Adhama Days (Collapsible) -->
                 <details class="adhama-dropdown">
-                    <summary class="adhama-summary">⚠️ Emergency Options (Adhama - 1 match)</summary>
+                    <summary class="adhama-summary" data-i18n="emergencyOptions">⚠️ ತುರ್ತು ಆಯ್ಕೆಗಳು (ಅಧಮ - 1 ಹೊಂದಾಣಿಕೆ)</summary>
                     <div class="upcoming-list" id="adhamaList">
-                        <div class="loading-text">Loading...</div>
+                        <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
                     </div>
                 </details>
             </div>
         </main>
 
         <footer class="footer">
-            <p>Data source: <a href="https://srsmatha.org" target="_blank">srsmatha.org</a></p>
+            <p><span data-i18n="source">ಮಾಹಿತಿ ಮೂಲ:</span> <a href="https://srsmatha.org" target="_blank">srsmatha.org</a></p>
         </footer>
     </div>
 

@@ -44,7 +44,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit', 'Noto Sans Kannada', sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
@@ -57,6 +57,11 @@ body {
         radial-gradient(ellipse at bottom right, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
 }
 
+.title[lang="kn"],
+.subtitle[lang="kn"],
+body.lang-kn {
+    font-family: 'Noto Sans Kannada', 'Outfit', sans-serif;
+}
 .container {
     width: 100%;
     max-width: var(--container-max);
@@ -69,6 +74,32 @@ body {
 .header {
     text-align: center;
     padding: var(--spacing-sm) 0;
+    position: relative;
+    }
+    
+    /* Language Toggle */
+    .lang-toggle {
+        position: absolute;
+        top: 5px;
+        right: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--text-primary);
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: 'Noto Sans Kannada', 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    
+    .lang-toggle:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
 }
 
 .title {
