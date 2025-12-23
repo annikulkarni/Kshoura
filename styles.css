@@ -387,8 +387,10 @@ body {
     padding: var(--spacing-xs) 0;
     list-style: none;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+        /* Align to top for multiline text */
     gap: var(--spacing-xs);
+    line-height: 1.4;
 }
 
 .adhama-summary::-webkit-details-marker {
@@ -399,6 +401,10 @@ body {
     content: '▶';
     font-size: 0.7rem;
     transition: transform 0.2s ease;
+    margin-top: 5px;
+        /* Visual alignment with text */
+        flex-shrink: 0;
+        /* Prevent icon from shrinking */
 }
 
 details[open] .adhama-summary::before {
