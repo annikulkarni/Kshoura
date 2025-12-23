@@ -72,7 +72,7 @@ body {
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--accent), #ec4899);
     -webkit-background-clip: text;
@@ -367,6 +367,51 @@ body {
     color: var(--madhyama);
 }
 
+.upcoming-rating.adhama {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--adhama);
+}
+
+/* Adhama Dropdown */
+.adhama-dropdown {
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--border);
+    padding-top: var(--spacing-sm);
+}
+
+.adhama-summary {
+    cursor: pointer;
+    color: var(--adhama);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: var(--spacing-xs) 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.adhama-summary::-webkit-details-marker {
+    display: none;
+}
+
+.adhama-summary::before {
+    content: '▶';
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+details[open] .adhama-summary::before {
+    transform: rotate(90deg);
+}
+
+.adhama-dropdown .upcoming-list {
+    margin-top: var(--spacing-sm);
+}
+
+.upcoming-item.adhama {
+    border-left-color: var(--adhama);
+}
 .loading-text {
     text-align: center;
     color: var(--text-muted);

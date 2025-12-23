@@ -119,7 +119,10 @@ function calculateRating(panchanga) {
 
 // Format date to YYYY-MM-DD
 function formatDate(date) {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 // Format date for display
@@ -247,11 +250,12 @@ function formatShortDate(date) {
         month: 'short'
     });
 }
-
 // Find upcoming auspicious days
 async function findUpcomingDays(daysToCheck = 15) {
     const upcomingList = document.getElementById('upcomingList');
-    const results = [];
+    const adhamaList = document.getElementById('adhamaList');
+    const goodDays = [];
+    const adhamaDays = [];
     
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -265,34 +269,56 @@ async function findUpcomingDays(daysToCheck = 15) {
         if (panchanga) {
             const rating = calculateRating(panchanga);
             
-            // Only show Uttama (3) and Madhyama (2) days
+            const dayData = {
+                date: checkDate,
+                panchanga,
+                rating
+            };
+
+            // Uttama (3) and Madhyama (2) -> good days
             if (rating.matches >= 2) {
-                results.push({
-                    date: checkDate,
-                    panchanga,
-                    rating
-                });
+                goodDays.push(dayData);
+            }
+            // Adhama (1) -> emergency days
+            else if (rating.matches === 1) {
+                adhamaDays.push(dayData);
             }
         }
     }
     
-    // Display results
-    if (results.length === 0) {
+    // Display good days
+    if (goodDays.length === 0) {
         upcomingList.innerHTML = '<div class="no-data-text">No auspicious days found in the next 15 days</div>';
-        return;
+    } else {
+        upcomingList.innerHTML = goodDays.map(item => `
+            <div class="upcoming-item ${item.rating.rating.class}">
+                <span class="upcoming-date">${formatShortDate(item.date)}</span>
+                <span class="upcoming-details">
+                    ${item.panchanga.thithi} • ${item.panchanga.nakshatra} • ${item.panchanga.vasara}
+                </span>
+                <span class="upcoming-rating ${item.rating.rating.class}">
+                    ${item.rating.rating.name}
+                </span>
+            </div>
+        `).join('');
     }
     
-    upcomingList.innerHTML = results.map(item => `
-        <div class="upcoming-item ${item.rating.rating.class}">
-            <span class="upcoming-date">${formatShortDate(item.date)}</span>
-            <span class="upcoming-details">
-                ${item.panchanga.thithi} • ${item.panchanga.nakshatra} • ${item.panchanga.vasara}
-            </span>
-            <span class="upcoming-rating ${item.rating.rating.class}">
-                ${item.rating.rating.name}
-            </span>
-        </div>
-    `).join('');
+    // Display adhama days
+    if (adhamaDays.length === 0) {
+        adhamaList.innerHTML = '<div class="no-data-text">No Adhama days in the next 15 days</div>';
+    } else {
+        adhamaList.innerHTML = adhamaDays.map(item => `
+            <div class="upcoming-item ${item.rating.rating.class}">
+                <span class="upcoming-date">${formatShortDate(item.date)}</span>
+                <span class="upcoming-details">
+                    ${item.panchanga.thithi} • ${item.panchanga.nakshatra} • ${item.panchanga.vasara}
+                </span>
+                <span class="upcoming-rating ${item.rating.rating.class}">
+                    ${item.rating.rating.name}
+                </span>
+            </div>
+        `).join('');
+    }
 }
 
 // Initialize
@@ -300,4 +326,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadPanchanga();
     await findUpcomingDays();
 });
+
 
