@@ -123,24 +123,25 @@ async function scrapeYear(year) {
     const page = await browser.newPage();
     const panchangaData = {};
     
-    // Generate dates from today to end of year
+    // Generate dates
     const today = new Date();
-    const startDate = new Date(year, today.getMonth(), today.getDate()); // Start from today
-    const endDate = new Date(year, 11, 31); // Dec 31
-    
-    // If year is past, scrape full year; if future, skip
+    let startDate;
+
     if (year < today.getFullYear()) {
-        console.log(`Year ${year} is in the past. Scraping full year.`);
-        startDate.setMonth(0);
-        startDate.setDate(1);
-    } else if (year > today.getFullYear()) {
-        console.log(`Year ${year} is in the future. Starting from Jan 1.`);
-        startDate.setMonth(0);
-        startDate.setDate(1);
+        // Past year - full year
+        startDate = new Date(year, 0, 1);
+    } else if (year === today.getFullYear()) {
+        // Current year - from today
+        startDate = new Date(year, today.getMonth(), today.getDate());
     } else {
-        console.log(`Starting from today: ${formatDate(startDate)}`);
+        // Future year - from Jan 1
+        startDate = new Date(year, 0, 1);
     }
     
+    const endDate = new Date(year, 11, 31); // Dec 31
+
+    console.log(`Scraping from ${formatDate(startDate)} to ${formatDate(endDate)}`);
+
     try {
         // Navigate to the page first
         console.log('Loading page...');
@@ -163,8 +164,8 @@ async function scrapeYear(year) {
                     }
                 }, dateStr);
                 
-                // Wait for data to load
-                await wait(2000);
+                // Wait for data to load (3.5 seconds for reliability)
+                await wait(3500);
                 
                 // Extract the data
                 const rawData = await extractPanchanga(page);

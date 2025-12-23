@@ -5,29 +5,29 @@
     "vasara": "Guruvara"
   },
   "2026-01-02": {
-    "thithi": null,
-    "nakshatra": null,
-    "vasara": null
-  },
-  "2026-01-03": {
-    "thithi": null,
-    "nakshatra": null,
-    "vasara": null
-  },
-  "2026-01-04": {
     "thithi": "Chaturdashi",
     "nakshatra": "Mrugashira",
     "vasara": "Śukravara"
   },
-  "2026-01-05": {
-    "thithi": null,
-    "nakshatra": null,
-    "vasara": null
+  "2026-01-03": {
+    "thithi": "Hunnime",
+    "nakshatra": "Ardhraa",
+    "vasara": "Śanivara"
   },
-  "2026-01-06": {
+  "2026-01-04": {
+    "thithi": "Prathama",
+    "nakshatra": "Punarvasu",
+    "vasara": "Ravivara"
+  },
+  "2026-01-05": {
     "thithi": "Dvitiya",
     "nakshatra": "Pushya",
     "vasara": "Somavara"
+  },
+  "2026-01-06": {
+    "thithi": "Tritiya",
+    "nakshatra": "Ashlesha",
+    "vasara": "Mangalavara"
   },
   "2026-01-07": {
     "thithi": "Chaturthi",
@@ -225,14 +225,14 @@
     "vasara": "Śanivara"
   },
   "2026-02-15": {
-    "thithi": null,
-    "nakshatra": null,
-    "vasara": null
-  },
-  "2026-02-16": {
     "thithi": "Trayodashi",
     "nakshatra": "Uttaraashadha",
     "vasara": "Ravivara"
+  },
+  "2026-02-16": {
+    "thithi": "Chaturdashi",
+    "nakshatra": "Shravana",
+    "vasara": "Somavara"
   },
   "2026-02-17": {
     "thithi": "Amavasya",

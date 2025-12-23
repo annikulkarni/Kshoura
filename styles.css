@@ -68,7 +68,7 @@ body {
 /* Header */
 .header {
     text-align: center;
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-sm) 0;
 }
 
 .title {
