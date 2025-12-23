@@ -1,0 +1,47 @@
+{
+  "2025-12-23": {
+    "thithi": "Tritiya",
+    "nakshatra": "Shravana",
+    "vasara": "Mangalavara"
+  },
+  "2025-12-24": {
+    "thithi": "Chaturthi",
+    "nakshatra": "Dhanishtha",
+    "vasara": "Budhavara"
+  },
+  "2025-12-25": {
+    "thithi": "Panchami",
+    "nakshatra": "Shatabisha",
+    "vasara": "Guruvara"
+  },
+  "2025-12-26": {
+    "thithi": "Shashthi",
+    "nakshatra": "Purvaabhaadra",
+    "vasara": "Śukravara"
+  },
+  "2025-12-27": {
+    "thithi": "Saptami",
+    "nakshatra": "Uttaraabhaadra",
+    "vasara": "Śanivara"
+  },
+  "2025-12-28": {
+    "thithi": "Ashtami",
+    "nakshatra": "Revathi",
+    "vasara": "Ravivara"
+  },
+  "2025-12-29": {
+    "thithi": "Dashami",
+    "nakshatra": "Ashwini",
+    "vasara": "Somavara"
+  },
+  "2025-12-30": {
+    "thithi": "Ekadashi",
+    "nakshatra": "Bharani",
+    "vasara": "Mangalavara"
+  },
+  "2025-12-31": {
+    "thithi": null,
+    "nakshatra": null,
+    "vasara": null
+  }
+}

@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scraper (keep the script, ignore dependencies)
+scraper/node_modules/

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check if today is auspicious for Ayushkarma (hair cutting) based on Indian Panchanga">
+    <title>Kshoura - Ayushkarma Panchanga</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">✂️ Kshoura</h1>
+            <p class="subtitle">Ayushkarma Panchanga</p>
+        </header>
+
+        <main class="main">
+            <!-- Date Display -->
+            <div class="date-card">
+                <span class="date-label">Today</span>
+                <span class="date-value" id="currentDate"></span>
+            </div>
+
+            <!-- Result Card -->
+            <div class="result-card" id="resultCard">
+                <div class="result-icon" id="resultIcon"></div>
+                <h2 class="result-title" id="resultTitle">Loading...</h2>
+                <p class="result-description" id="resultDescription"></p>
+                <div class="match-count" id="matchCount"></div>
+            </div>
+
+            <!-- Panchanga Details -->
+            <div class="panchanga-grid">
+                <div class="panchanga-item" id="thithiCard">
+                    <span class="panchanga-label">Thithi</span>
+                    <span class="panchanga-value" id="thithiValue">-</span>
+                    <span class="panchanga-status" id="thithiStatus"></span>
+                </div>
+                <div class="panchanga-item" id="nakshatraCard">
+                    <span class="panchanga-label">Nakshatra</span>
+                    <span class="panchanga-value" id="nakshatraValue">-</span>
+                    <span class="panchanga-status" id="nakshatraStatus"></span>
+                </div>
+                <div class="panchanga-item" id="vasaraCard">
+                    <span class="panchanga-label">Vasara</span>
+                    <span class="panchanga-value" id="vasaraValue">-</span>
+                    <span class="panchanga-status" id="vasaraStatus"></span>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-dot uttama"></span>
+                    <span>Uttama (3 match)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot madhyama"></span>
+                    <span>Madhyama (2 match)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot adhama"></span>
+                    <span>Adhama (1 match)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot varjya"></span>
+                    <span>Varjya (0 match)</span>
+                </div>
+            </div>
+
+            <!-- Upcoming Auspicious Days -->
+            <div class="upcoming-section">
+                <h3 class="upcoming-title">📅 Upcoming Auspicious Days</h3>
+                <p class="upcoming-subtitle">Best days for Kshoura in the next 15 days</p>
+                <div class="upcoming-list" id="upcomingList">
+                    <div class="loading-text">Loading...</div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Based on traditional Dharmashastra guidelines</p>
+            <p>Data source: <a href="https://srsmatha.org" target="_blank">srsmatha.org</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
