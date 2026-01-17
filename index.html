@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
     <div class="container">
@@ -23,74 +23,115 @@
         </header>
 
         <main class="main">
-            <!-- Date Display -->
-            <div class="date-card">
-                <span class="date-label" data-i18n="today">ಇಂದು</span>
-                <span class="date-value" id="currentDate"></span>
+            <!-- Navigation Tabs -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="today" data-i18n="tabToday">ಇಂದು</button>
+                <button class="tab-btn" data-tab="important" data-i18n="tabImportant">ಮಹತ್ವದ ದಿನಗಳು</button>
+                <button class="tab-btn" data-tab="ekadashi" data-i18n="tabEkadashi">ಏಕಾದಶಿ</button>
             </div>
+            
+            <!-- Today Tab Content -->
+            <div class="tab-content active" id="tab-today">
+                <!-- Date Display -->
+                <div class="date-card">
+                    <span class="date-label" data-i18n="today">ಇಂದು</span>
+                    <span class="date-value" id="currentDate"></span>
+                </div>
 
-            <!-- Result Card -->
-            <div class="result-card" id="resultCard">
-                <div class="result-icon" id="resultIcon"></div>
-                <h2 class="result-title" id="resultTitle" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</h2>
-                <p class="result-description" id="resultDescription"></p>
-                <div class="match-count" id="matchCount"></div>
-            </div>
+                <!-- Dharmashastra Details (shown if available) -->
+                <div class="dharmashastra-card" id="dharmashastraCard" style="display: none;">
+                    <div class="dharmashastra-icon">🪔</div>
+                    <div class="dharmashastra-content">
+                        <span class="dharmashastra-label" data-i18n="dharmashastraLabel">ಧರ್ಮಶಾಸ್ತ್ರ ವಿವರಗಳು</span>
+                        <span class="dharmashastra-value" id="dharmashastraValue"></span>
+                    </div>
+                </div>
 
-            <!-- Panchanga Details -->
-            <div class="panchanga-grid">
-                <div class="panchanga-item" id="thithiCard">
-                    <span class="panchanga-label" data-i18n="thithi">ತಿಥಿ</span>
-                    <span class="panchanga-value" id="thithiValue">-</span>
-                    <span class="panchanga-status" id="thithiStatus"></span>
+                <!-- Result Card -->
+                <div class="result-card" id="resultCard">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <h2 class="result-title" id="resultTitle" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</h2>
+                    <p class="result-description" id="resultDescription"></p>
+                    <div class="match-count" id="matchCount"></div>
                 </div>
-                <div class="panchanga-item" id="nakshatraCard">
-                    <span class="panchanga-label" data-i18n="nakshatra">ನಕ್ಷತ್ರ</span>
-                    <span class="panchanga-value" id="nakshatraValue">-</span>
-                    <span class="panchanga-status" id="nakshatraStatus"></span>
-                </div>
-                <div class="panchanga-item" id="vasaraCard">
-                    <span class="panchanga-label" data-i18n="vasara">ವಾರ</span>
-                    <span class="panchanga-value" id="vasaraValue">-</span>
-                    <span class="panchanga-status" id="vasaraStatus"></span>
-                </div>
-            </div>
 
-            <!-- Legend -->
-            <div class="legend">
-                <div class="legend-item">
-                    <span class="legend-dot uttama"></span>
-                    <span data-i18n="uttamaLeg">ಉತ್ತಮ (3 ಹೊಂದಾಣಿಕೆ)</span>
+                <!-- Panchanga Details -->
+                <div class="panchanga-grid">
+                    <div class="panchanga-item" id="thithiCard">
+                        <span class="panchanga-label" data-i18n="thithi">ತಿಥಿ</span>
+                        <span class="panchanga-value" id="thithiValue">-</span>
+                        <span class="panchanga-status" id="thithiStatus"></span>
+                    </div>
+                    <div class="panchanga-item" id="nakshatraCard">
+                        <span class="panchanga-label" data-i18n="nakshatra">ನಕ್ಷತ್ರ</span>
+                        <span class="panchanga-value" id="nakshatraValue">-</span>
+                        <span class="panchanga-status" id="nakshatraStatus"></span>
+                    </div>
+                    <div class="panchanga-item" id="vasaraCard">
+                        <span class="panchanga-label" data-i18n="vasara">ವಾರ</span>
+                        <span class="panchanga-value" id="vasaraValue">-</span>
+                        <span class="panchanga-status" id="vasaraStatus"></span>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <span class="legend-dot madhyama"></span>
-                    <span data-i18n="madhyamaLeg">ಮಧ್ಯಮ (2 ಹೊಂದಾಣಿಕೆ)</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot adhama"></span>
-                    <span data-i18n="adhamaLeg">ಅಧಮ (1 ಹೊಂದಾಣಿಕೆ)</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot varjya"></span>
-                    <span data-i18n="varjyaLeg">ವರ್ಜ್ಯ (0 ಹೊಂದಾಣಿಕೆ)</span>
-                </div>
-            </div>
 
-            <!-- Upcoming Auspicious Days -->
-            <div class="upcoming-section">
-                <h3 class="upcoming-title" data-i18n="upcomingTitle">📅 ಮುಂಬರುವ ಶುಭ ದಿನಗಳು</h3>
-                <p class="upcoming-subtitle" data-i18n="upcomingSubtitle">ಮುಂದಿನ 15 ದಿನಗಳಲ್ಲಿ ಕ್ಷೌರಕ್ಕೆ ಉತ್ತಮ ದಿನಗಳು</p>
-                <div class="upcoming-list" id="upcomingList">
-                    <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
+                <!-- Legend -->
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-dot uttama"></span>
+                        <span data-i18n="uttamaLeg">ಉತ್ತಮ (3 ಹೊಂದಾಣಿಕೆ)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot madhyama"></span>
+                        <span data-i18n="madhyamaLeg">ಮಧ್ಯಮ (2 ಹೊಂದಾಣಿಕೆ)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot adhama"></span>
+                        <span data-i18n="adhamaLeg">ಅಧಮ (1 ಹೊಂದಾಣಿಕೆ)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot varjya"></span>
+                        <span data-i18n="varjyaLeg">ವರ್ಜ್ಯ (0 ಹೊಂದಾಣಿಕೆ)</span>
+                    </div>
                 </div>
-                <!-- Adhama Days (Collapsible) -->
-                <details class="adhama-dropdown">
-                    <summary class="adhama-summary" data-i18n="emergencyOptions">⚠️ ತುರ್ತು ಆಯ್ಕೆಗಳು (ಅಧಮ - 1 ಹೊಂದಾಣಿಕೆ)</summary>
-                    <div class="upcoming-list" id="adhamaList">
+
+                <!-- Upcoming Auspicious Days -->
+                <div class="upcoming-section">
+                    <h3 class="upcoming-title" data-i18n="upcomingTitle">📅 ಮುಂಬರುವ ಶುಭ ದಿನಗಳು</h3>
+                    <p class="upcoming-subtitle" data-i18n="upcomingSubtitle">ಮುಂದಿನ 15 ದಿನಗಳಲ್ಲಿ ಕ್ಷೌರಕ್ಕೆ ಉತ್ತಮ ದಿನಗಳು</p>
+                    <div class="upcoming-list" id="upcomingList">
                         <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
                     </div>
-                </details>
-            </div>
+                    <!-- Adhama Days (Collapsible) -->
+                    <details class="adhama-dropdown">
+                        <summary class="adhama-summary" data-i18n="emergencyOptions">⚠️ ತುರ್ತು ಆಯ್ಕೆಗಳು (ಅಧಮ - 1 ಹೊಂದಾಣಿಕೆ)</summary>
+                        <div class="upcoming-list" id="adhamaList">
+                            <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
+                        </div>
+                    </details>
+                </div>
+                </div>
+                
+                <!-- Important Dates Tab Content -->
+                <div class="tab-content" id="tab-important">
+                    <div class="important-section">
+                        <h3 class="section-title" data-i18n="importantDatesTitle">🪔 ಮಹತ್ವದ ದಿನಗಳು</h3>
+                        <p class="section-subtitle" data-i18n="importantDatesSubtitle">ಧರ್ಮಶಾಸ್ತ್ರದ ಪ್ರಕಾರ ವಿಶೇಷ ದಿನಗಳು</p>
+                        <div class="important-list" id="importantList">
+                            <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ekadashi Tab Content -->
+                <div class="tab-content" id="tab-ekadashi">
+                    <div class="ekadashi-section">
+                        <h3 class="section-title" data-i18n="ekadashiTitle">🙏 ಏಕಾದಶಿ ತಿಥಿಗಳು</h3>
+                        <p class="section-subtitle" data-i18n="ekadashiSubtitle">ಮುಂಬರುವ ಏಕಾದಶಿ ದಿನಗಳು</p>
+                        <div class="ekadashi-list" id="ekadashiList">
+                            <div class="loading-text" data-i18n="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
+                        </div>
+                    </div>
+                </div>
         </main>
 
         <footer class="footer">
@@ -98,6 +139,6 @@
         </footer>
     </div>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=6"></script>
 </body>
 </html>

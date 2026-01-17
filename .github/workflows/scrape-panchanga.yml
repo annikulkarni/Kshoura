@@ -1,0 +1,71 @@
+# Automatic Panchanga Scraper
+# Runs after Ugadi (around mid-March) to scrape next year's panchanga data
+# Also runs on manual trigger
+
+name: Scrape Panchanga Data
+
+on:
+  # Run on March 25th every year (after Ugadi typically ends)
+  schedule:
+    - cron: '0 0 25 3 *'  # 00:00 UTC on March 25th
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Year to scrape (defaults to next year)'
+        required: false
+        type: string
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          cd scraper
+          npm install puppeteer
+      
+      - name: Determine year to scrape
+        id: year
+        run: |
+          if [ -n "${{ github.event.inputs.year }}" ]; then
+            echo "year=${{ github.event.inputs.year }}" >> $GITHUB_OUTPUT
+          else
+            # Default to next year (for scheduled runs after Ugadi)
+            NEXT_YEAR=$(($(date +%Y) + 1))
+            echo "year=$NEXT_YEAR" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run scraper
+        run: |
+          cd scraper
+          node scrape.js ${{ steps.year.outputs.year }}
+        timeout-minutes: 180  # 3 hours max (365 days * 3.5s = ~21 mins, but allow buffer)
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add panchanga-*.json
+          git diff --staged --quiet || git commit -m "🗓️ Auto-scraped panchanga data for ${{ steps.year.outputs.year }}"
+          git push
+      
+      - name: Summary
+        run: |
+          echo "## Scraping Complete! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Year:** ${{ steps.year.outputs.year }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The panchanga data has been scraped and committed to the repository." >> $GITHUB_STEP_SUMMARY

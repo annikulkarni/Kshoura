@@ -24,6 +24,25 @@ const TRANSLATIONS = {
         noData: "No auspicious days found in the next 15 days",
         noAdhama: "No Adhama days in the next 15 days",
 
+        // Tabs
+        tabToday: "Today",
+        tabImportant: "Important Dates",
+        tabEkadashi: "Ekadashi",
+
+        // Dharmashastra
+        dharmashastraLabel: "Dharmashastra Details",
+
+        // Important Dates
+        importantDatesTitle: "🪔 Important Dates",
+        importantDatesSubtitle: "Special days according to Dharmashastra",
+        noImportantDates: "No important dates in this period",
+
+        // Ekadashi
+        ekadashiTitle: "🙏 Ekadashi Tithis",
+        ekadashiSubtitle: "Upcoming Ekadashi days",
+        noEkadashi: "No Ekadashi days found",
+        ekadashiTag: "Ekadashi",
+
         // Ratings
         Uttama: "Uttama",
         Madhyama: "Madhyama",
@@ -57,6 +76,25 @@ const TRANSLATIONS = {
         source: "ಮಾಹಿತಿ ಮೂಲ:",
         noData: "ಮುಂದಿನ 15 ದಿನಗಳಲ್ಲಿ ಯಾವುದೇ ಶುಭ ದಿನಗಳಿಲ್ಲ",
         noAdhama: "ಮುಂದಿನ 15 ದಿನಗಳಲ್ಲಿ ಅಧಮ ದಿನಗಳಿಲ್ಲ",
+
+        // Tabs
+        tabToday: "ಇಂದು",
+        tabImportant: "ಮಹತ್ವದ ದಿನಗಳು",
+        tabEkadashi: "ಏಕಾದಶಿ",
+
+        // Dharmashastra
+        dharmashastraLabel: "ಧರ್ಮಶಾಸ್ತ್ರ ವಿವರಗಳು",
+
+        // Important Dates
+        importantDatesTitle: "🪔 ಮಹತ್ವದ ದಿನಗಳು",
+        importantDatesSubtitle: "ಧರ್ಮಶಾಸ್ತ್ರದ ಪ್ರಕಾರ ವಿಶೇಷ ದಿನಗಳು",
+        noImportantDates: "ಈ ಅವಧಿಯಲ್ಲಿ ಮಹತ್ವದ ದಿನಗಳಿಲ್ಲ",
+
+        // Ekadashi
+        ekadashiTitle: "🙏 ಏಕಾದಶಿ ತಿಥಿಗಳು",
+        ekadashiSubtitle: "ಮುಂಬರುವ ಏಕಾದಶಿ ದಿನಗಳು",
+        noEkadashi: "ಏಕಾದಶಿ ದಿನಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+        ekadashiTag: "ಏಕಾದಶಿ",
 
         // Ratings
         Uttama: "ಉತ್ತಮ",
@@ -128,6 +166,68 @@ const TRANSLATIONS = {
         'Purva Bhadrapada': 'ಪೂರ್ವಾಭಾದ್ರ', 'Purvabhadra': 'ಪೂರ್ವಾಭಾದ್ರ',
         'Uttara Bhadrapada': 'ಉತ್ತರಾಭಾದ್ರ', 'Uttarabhadra': 'ಉತ್ತರಾಭಾದ್ರ',
         'Revati': 'ರೇವತಿ', 'Revathi': 'ರೇವತಿ'
+    },
+    // Dharmashastra Event Translations
+    dharmashastra: {
+        // Punyadina / Aradhana
+        'Sri Purandara Dasara Punyadina (Hampi)': 'ಶ್ರೀ ಪುರಂದರ ದಾಸರ ಪುಣ್ಯದಿನ (ಹಂಪಿ)',
+        'Sri Sujayeendra Teerthara Aradhana (Mantrlaayam)': 'ಶ್ರೀ ಸುಜಯೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ಮಂತ್ರಾಲಯ)',
+        'Sri Yogendra Teerthara Aradhana': 'ಶ್ರೀ ಯೋಗೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ',
+        'Sri Yogendra Teerthara Aradhana (Srirangam)': 'ಶ್ರೀ ಯೋಗೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ಶ್ರೀರಂಗಂ)',
+        'Sri Vyasaraja Aradhana (Navavrundavana)': 'ಶ್ರೀ ವ್ಯಾಸರಾಜ ಆರಾಧನೆ (ನವವೃಂದಾವನ)',
+        'Sri Suyateendra Teerthara Mahasamaradhana (Mantralayam)': 'ಶ್ರೀ ಸುಯತೀಂದ್ರ ತೀರ್ಥರ ಮಹಾಸಮಾರಾಧನೆ (ಮಂತ್ರಾಲಯ)',
+        'Sri Yaadavendra Teerthara Aradhana': 'ಶ್ರೀ ಯಾದವೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ',
+        'Sri Yaadavendra Teerthara Aradhana (Mudumaala)': 'ಶ್ರೀ ಯಾದವೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ಮುಡುಮಾಲಾ)',
+        'Sri Sudheendra Teerthara Aradhana': 'ಶ್ರೀ ಸುಧೀಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ',
+        'Sri Sudheendra Teerthara Aradhana (Nanjanagudu)': 'ಶ್ರೀ ಸುಧೀಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ನಂಜನಗೂಡು)',
+        'Sri Sudheendra Teerthara Aradhana (Navavrundavana)': 'ಶ್ರೀ ಸುಧೀಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ನವವೃಂದಾವನ)',
+        'Sri Suprajnendra Teerthara Aradhana (Nanjanagudu)': 'ಶ್ರೀ ಸುಪ್ರಜ್ಞೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ನಂಜನಗೂಡು)',
+        'Sri Pranesha Dasara Punyadina': 'ಶ್ರೀ ಪ್ರಾಣೇಶ ದಾಸರ ಪುಣ್ಯದಿನ',
+        'Sri Guru Pranesha Dasara Punyadina (KasabaLingasuguru)': 'ಶ್ರೀ ಗುರು ಪ್ರಾಣೇಶ ದಾಸರ ಪುಣ್ಯದಿನ (ಕಸಬಾಲಿಂಗಸುಗೂರು)',
+        'Sri Raghavendraswamy Aradhana (Mantralayam)': 'ಶ್ರೀ ರಾಘವೇಂದ್ರಸ್ವಾಮಿ ಆರಾಧನೆ (ಮಂತ್ರಾಲಯ)',
+        'Sri Kanaka Dasara Punyadina (KasabaLingasuguru)': 'ಶ್ರೀ ಕನಕ ದಾಸರ ಪುಣ್ಯದಿನ (ಕಸಬಾಲಿಂಗಸುಗೂರು)',
+        'Sri Kanaka Dasara Punyadina': 'ಶ್ರೀ ಕನಕ ದಾಸರ ಪುಣ್ಯದಿನ',
+        'Sri Dheerendra Teerthara Aradhana (Hosaritti)': 'ಶ್ರೀ ಧೀರೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ಹೊಸರಿತ್ತಿ)',
+        'Sri Vadiraja Aradhana (Sonda)': 'ಶ್ರೀ ವಾದಿರಾಜ ಆರಾಧನೆ (ಸೊಂಡಾ)',
+        'Sri Vishnuteerthara aradhana (Madinooru)': 'ಶ್ರೀ ವಿಷ್ಣುತೀರ್ಥರ ಆರಾಧನೆ (ಮಾದಿನೂರು)',
+
+        // Festivals and Events
+        'Madwanavaratri Arambha': 'ಮಧ್ವನವರಾತ್ರಿ ಆರಂಭ',
+        'Madwanavaratri Samaapti': 'ಮಧ್ವನವರಾತ್ರಿ ಸಮಾಪ್ತಿ',
+        'Ratha Saptami': 'ರಥ ಸಪ್ತಮಿ',
+        'Bheeshmashtami': 'ಭೀಷ್ಮಾಷ್ಟಮಿ',
+        'Madhva Navami': 'ಮಧ್ವ ನವಮಿ',
+        'Dhoolivandana': 'ಧೂಳಿವಂದನ',
+        'Dashami Anishtana': 'ದಶಮಿ ಅನಿಷ್ಠಾನ',
+        'Sarvesham Ekadashi': 'ಸರ್ವೇಷಾಂ ಏಕಾದಶಿ',
+        'Guru vaibhotsava Arambha': 'ಗುರು ವೈಭೋತ್ಸವ ಆರಂಭ',
+        'Guru vaibhotsava Arambha, Payovrataarambha': 'ಗುರು ವೈಭೋತ್ಸವ ಆರಂಭ, ಪಯೋವ್ರತಾರಂಭ',
+        'Rayara Vardhanti': 'ರಾಯರ ವರ್ಧಂತಿ',
+        'Rayara Pattabhisheka': 'ರಾಯರ ಪಟ್ಟಾಭಿಷೇಕ',
+        'Holika Kaamadahana': 'ಹೋಳಿಕಾ ಕಾಮದಹನ',
+        'Holi': 'ಹೋಳಿ',
+        'Ugadi': 'ಯುಗಾದಿ',
+        'MahaShivaratri': 'ಮಹಾಶಿವರಾತ್ರಿ',
+        'MahaShivaratri, Sri Vishnuteerthara aradhana (Madinooru)': 'ಮಹಾಶಿವರಾತ್ರಿ, ಶ್ರೀ ವಿಷ್ಣುತೀರ್ಥರ ಆರಾಧನೆ (ಮಾದಿನೂರು)',
+        'Sri Rama Navami': 'ಶ್ರೀ ರಾಮ ನವಮಿ',
+        'Hanuma Jayanti': 'ಹನುಮ ಜಯಂತಿ',
+        'Akshaya Tritiya': 'ಅಕ್ಷಯ ತೃತೀಯ',
+        'Narasimha Jayanti': 'ನರಸಿಂಹ ಜಯಂತಿ',
+        'Vaikuntha Ekadashi': 'ವೈಕುಂಠ ಏಕಾದಶಿ',
+        'Makara Sankranti': 'ಮಕರ ಸಂಕ್ರಾಂತಿ',
+        'Krishna Janmashtami': 'ಕೃಷ್ಣ ಜನ್ಮಾಷ್ಟಮಿ',
+        'Ganesha Chaturthi': 'ಗಣೇಶ ಚತುರ್ಥಿ',
+        'Navaratri Arambha': 'ನವರಾತ್ರಿ ಆರಂಭ',
+        'Vijayadashami': 'ವಿಜಯದಶಮಿ',
+        'Deepavali': 'ದೀಪಾವಳಿ',
+        'Diwali': 'ದೀಪಾವಳಿ',
+        'Payovrataarambhana': 'ಪಯೋವ್ರತಾರಂಭನ',
+        'Payovrataarambha': 'ಪಯೋವ್ರತಾರಂಭ',
+        'Payovrata Samaapti': 'ಪಯೋವ್ರತ ಸಮಾಪ್ತಿ',
+        'Sri Dheerendra Teerthara Aradhana (Hosaritti), Payovrata Samaapti': 'ಶ್ರೀ ಧೀರೇಂದ್ರ ತೀರ್ಥರ ಆರಾಧನೆ (ಹೊಸರಿತ್ತಿ), ಪಯೋವ್ರತ ಸಮಾಪ್ತಿ',
+        'Grastodaya Chandra Grahana': 'ಗ್ರಸ್ತೋದಯ ಚಂದ್ರ ಗ್ರಹಣ',
+        'Grastodaya Chandra Grahana 6-26 pm to 6-47 Pm': 'ಗ್ರಸ್ತೋದಯ ಚಂದ್ರ ಗ್ರಹಣ ೬-೨೬ ಸಾಯಂ ರಿಂದ ೬-೪೭ ಸಾಯಂ',
+        '.': '' // Ignore placeholder entries
     }
 };
 
@@ -314,6 +414,37 @@ function translateTerm(term) {
     return term; // Fallback
 }
 
+// Translate Dharmashastra event names
+function translateDharmashastra(text) {
+    if (!text) return '';
+
+    // If English, return as is
+    if (currentLang === 'en') return text;
+
+    // Direct lookup
+    if (TRANSLATIONS.dharmashastra[text]) {
+        return TRANSLATIONS.dharmashastra[text];
+    }
+
+    // Try to find partial matches for complex entries
+    const keys = Object.keys(TRANSLATIONS.dharmashastra);
+    for (const key of keys) {
+        if (text.includes(key) || key.includes(text)) {
+            return TRANSLATIONS.dharmashastra[key];
+        }
+    }
+
+    // Fuzzy match - clean and compare
+    const cleanInput = text.toLowerCase().trim();
+    for (const key of keys) {
+        if (cleanInput === key.toLowerCase().trim()) {
+            return TRANSLATIONS.dharmashastra[key];
+        }
+    }
+
+    return text; // Fallback to original
+}
+
 // SWITCH LANGUAGE
 function setLanguage(lang) {
     currentLang = lang;
@@ -334,6 +465,18 @@ function setLanguage(lang) {
     // We need to reload panchanga to trigger updateUI with new language
     loadPanchanga(); // Result card + details
     findUpcomingDays(); // Upcoming list
+
+    // Re-render Important Dates and Ekadashi if they were already loaded
+    const importantList = document.getElementById('importantList');
+    const ekadashiList = document.getElementById('ekadashiList');
+
+    // Check if they have been loaded (not showing loading text)
+    if (importantList && !importantList.querySelector('.loading-text')) {
+        loadImportantDates();
+    }
+    if (ekadashiList && !ekadashiList.querySelector('.loading-text')) {
+        loadEkadashiDates();
+    }
 }
 
 
@@ -419,6 +562,17 @@ function updateUI(panchanga, result) {
     updateMatchStatus('thithi', result.thithiMatch);
     updateMatchStatus('nakshatra', result.nakshatraMatch);
     updateMatchStatus('vasara', result.vasaraMatch);
+
+    // Update Dharmashastra details
+    const dharmashastraCard = document.getElementById('dharmashastraCard');
+    const dharmashastraValue = document.getElementById('dharmashastraValue');
+
+    if (panchanga.dharmashastra && panchanga.dharmashastra.trim().length > 0) {
+        dharmashastraCard.style.display = 'flex';
+        dharmashastraValue.textContent = translateDharmashastra(panchanga.dharmashastra);
+    } else {
+        dharmashastraCard.style.display = 'none';
+    }
 }
 
 function updateMatchStatus(category, isMatch) {
@@ -580,8 +734,120 @@ document.addEventListener('DOMContentLoaded', async () => {
         setLanguage(newLang);
     });
 
+    // Setup Tab Navigation
+    setupTabs();
+
     // Set default language
     setLanguage('kn');
 });
 
+// Tab Navigation
+function setupTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
 
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.dataset.tab;
+
+            // Update active button
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update active content
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `tab-${targetTab}`) {
+                    content.classList.add('active');
+                }
+            });
+
+            // Load data for the tab if needed
+            if (targetTab === 'important') {
+                loadImportantDates();
+            } else if (targetTab === 'ekadashi') {
+                loadEkadashiDates();
+            }
+        });
+    });
+}
+
+// Load Important Dates (days with dharmashastra details)
+async function loadImportantDates(daysToCheck = 90) {
+    const importantList = document.getElementById('importantList');
+    const importantDays = [];
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i <= daysToCheck; i++) {
+        const checkDate = new Date(today);
+        checkDate.setDate(today.getDate() + i);
+
+        const panchanga = await getPanchangaForDate(checkDate);
+
+        if (panchanga && panchanga.dharmashastra && panchanga.dharmashastra.trim().length > 0) {
+            importantDays.push({
+                date: checkDate,
+                dharmashastra: panchanga.dharmashastra,
+                panchanga
+            });
+        }
+    }
+
+    if (importantDays.length === 0) {
+        importantList.innerHTML = `<div class="no-data-text">${t('noImportantDates')}</div>`;
+        return;
+    }
+
+    importantList.innerHTML = importantDays.map(item => `
+        <div class="important-item">
+            <span class="important-date">${formatShortDate(item.date)}</span>
+            <span class="important-details">${translateDharmashastra(item.dharmashastra)}</span>
+        </div>
+    `).join('');
+}
+
+// Load Ekadashi Dates
+async function loadEkadashiDates(daysToCheck = 90) {
+    const ekadashiList = document.getElementById('ekadashiList');
+    const ekadashiDays = [];
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i <= daysToCheck; i++) {
+        const checkDate = new Date(today);
+        checkDate.setDate(today.getDate() + i);
+
+        const panchanga = await getPanchangaForDate(checkDate);
+
+        if (panchanga && panchanga.thithi) {
+            const normalizedThithi = normalize(panchanga.thithi, 'thithi');
+            if (normalizedThithi === 'ekadashi') {
+                ekadashiDays.push({
+                    date: checkDate,
+                    panchanga
+                });
+            }
+        }
+    }
+
+    if (ekadashiDays.length === 0) {
+        ekadashiList.innerHTML = `<div class="no-data-text">${t('noEkadashi')}</div>`;
+        return;
+    }
+
+    ekadashiList.innerHTML = ekadashiDays.map(item => `
+        <div class="ekadashi-item">
+            <div class="ekadashi-date">
+                <span>${formatShortDate(item.date)}</span>
+                <span class="ekadashi-tag">${t('ekadashiTag')}</span>
+            </div>
+            <span class="ekadashi-details">
+                ${translateTerm(item.panchanga.nakshatra)} • ${translateTerm(item.panchanga.vasara)}
+                ${item.panchanga.dharmashastra ? ` • ${translateDharmashastra(item.panchanga.dharmashastra)}` : ''}
+            </span>
+        </div>
+    `).join('');
+}

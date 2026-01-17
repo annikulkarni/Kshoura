@@ -179,6 +179,9 @@ async function scrapeYear(year) {
         await page.goto(BASE_URL, { waitUntil: 'networkidle2', timeout: 60000 });
         await wait(3000); // Wait for dynamic content
         
+        let consecutiveNulls = 0;
+        const MAX_CONSECUTIVE_NULLS = 3; // Stop after 3 consecutive null entries
+
         // For each date in the year
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
             const dateStr = formatDate(d);
@@ -201,6 +204,24 @@ async function scrapeYear(year) {
                 // Extract the data
                 const rawData = await extractPanchanga(page);
                 
+                // Check if we got valid data (null/empty or garbage like "Yoga" in nakshatra means end of panchanga year)
+                const thithiEmpty = !rawData.thithi || rawData.thithi.trim() === '';
+                const nakshatraInvalid = rawData.nakshatra && rawData.nakshatra.toLowerCase().includes('yoga');
+
+                if (thithiEmpty || nakshatraInvalid) {
+                    consecutiveNulls++;
+                    console.log(`⚠ Invalid data detected (${consecutiveNulls}/${MAX_CONSECUTIVE_NULLS})`);
+
+                    if (consecutiveNulls >= MAX_CONSECUTIVE_NULLS) {
+                        console.log(`\n🛑 Detected end of panchanga year (Ugadi). Stopping scrape.`);
+                        break;
+                    }
+                    continue;
+                }
+
+                // Reset counter on valid data
+                consecutiveNulls = 0;
+
                 // Parse and normalize
                 const entry = {
                     thithi: parseThithi(rawData.thithi),
@@ -218,7 +239,7 @@ async function scrapeYear(year) {
                 const dharmaInfo = entry.dharmashastra ? ` | ${entry.dharmashastra.substring(0, 40)}...` : '';
                 console.log(`✓ ${entry.thithi}, ${entry.nakshatra}, ${entry.vasara}${dharmaInfo}`);
                 
-                // Save progress every 30 days
+                // Save progress every 15 days
                 if (d.getDate() === 1 || d.getDate() === 15) {
                     const outputPath = `../panchanga-${year}.json`;
                     fs.writeFileSync(outputPath, JSON.stringify(panchangaData, null, 2));
@@ -239,16 +260,44 @@ async function scrapeYear(year) {
     const outputPath = `../panchanga-${year}.json`;
     fs.writeFileSync(outputPath, JSON.stringify(panchangaData, null, 2));
     console.log(`\nSaved to ${outputPath}`);
+    console.log(`Total entries: ${Object.keys(panchangaData).length}`);
     
     return panchangaData;
 }
 
+// Get last date from existing JSON file
+function getLastDateFromJson(year) {
+    const filePath = `../panchanga-${year}.json`;
+    try {
+        if (fs.existsSync(filePath)) {
+            const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            const dates = Object.keys(data).sort();
+            if (dates.length > 0) {
+                return dates[dates.length - 1];
+            }
+        }
+    } catch (e) {
+        console.log(`Could not read existing file: ${e.message}`);
+    }
+    return null;
+}
+
 // Run for specified year or current year
-const year = process.argv[2] ? parseInt(process.argv[2]) : new Date().getFullYear();
+// Usage: node scrape.js [year] [--continue]
+const args = process.argv.slice(2);
+const year = args.find(a => !a.startsWith('--')) ? parseInt(args.find(a => !a.startsWith('--'))) : new Date().getFullYear();
+const shouldContinue = args.includes('--continue');
+
+if (shouldContinue) {
+    const lastDate = getLastDateFromJson(year);
+    if (lastDate) {
+        console.log(`Continuing from last scraped date: ${lastDate}`);
+    }
+}
+
 scrapeYear(year).then(() => {
     console.log('Scraping complete!');
 }).catch(err => {
     console.error('Scraping failed:', err);
     process.exit(1);
 });
-
