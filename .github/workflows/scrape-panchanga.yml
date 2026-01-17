@@ -1,13 +1,13 @@
 # Automatic Panchanga Scraper
-# Runs after Ugadi (around mid-March) to scrape next year's panchanga data
-# Also runs on manual trigger
+# Checks daily after Ugadi (March 15-31) for new year's data
+# Once data is found and scraped, it won't run again until next year
 
 name: Scrape Panchanga Data
 
 on:
-  # Run on March 25th every year (after Ugadi typically ends)
+  # Check daily from March 15-31 for new data
   schedule:
-    - cron: '0 0 25 3 *'  # 00:00 UTC on March 25th
+    - cron: '0 6 15-31 3 *'  # 6 AM UTC daily from March 15-31
   
   # Allow manual trigger
   workflow_dispatch:
@@ -16,6 +16,11 @@ on:
         description: 'Year to scrape (defaults to next year)'
         required: false
         type: string
+      force:
+        description: 'Force scrape even if file exists'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   scrape:
@@ -27,45 +32,86 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      
-      - name: Install dependencies
-        run: |
-          cd scraper
-          npm install puppeteer
-      
       - name: Determine year to scrape
         id: year
         run: |
           if [ -n "${{ github.event.inputs.year }}" ]; then
             echo "year=${{ github.event.inputs.year }}" >> $GITHUB_OUTPUT
           else
-            # Default to next year (for scheduled runs after Ugadi)
+            # Next year's panchanga (e.g., if running in March 2026, scrape 2027)
             NEXT_YEAR=$(($(date +%Y) + 1))
             echo "year=$NEXT_YEAR" >> $GITHUB_OUTPUT
           fi
       
+      - name: Check if data already exists
+        id: check
+        run: |
+          FILE="panchanga-${{ steps.year.outputs.year }}.json"
+          if [ -f "$FILE" ] && [ "${{ github.event.inputs.force }}" != "true" ]; then
+            # Check if file has substantial data (more than 100 entries means it's complete)
+            ENTRIES=$(cat "$FILE" | grep -c '"thithi"' || echo "0")
+            if [ "$ENTRIES" -gt 100 ]; then
+              echo "skip=true" >> $GITHUB_OUTPUT
+              echo "File $FILE already has $ENTRIES entries. Skipping."
+            else
+              echo "skip=false" >> $GITHUB_OUTPUT
+              echo "File $FILE has only $ENTRIES entries. Will scrape."
+            fi
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Setup Node.js
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          cd scraper
+          npm install
+      
       - name: Run scraper
+        if: steps.check.outputs.skip != 'true'
+        id: scrape
         run: |
           cd scraper
           node scrape.js ${{ steps.year.outputs.year }}
-        timeout-minutes: 180  # 3 hours max (365 days * 3.5s = ~21 mins, but allow buffer)
+          
+          # Check if we got meaningful data
+          FILE="../panchanga-${{ steps.year.outputs.year }}.json"
+          if [ -f "$FILE" ]; then
+            ENTRIES=$(cat "$FILE" | grep -c '"thithi"' || echo "0")
+            echo "entries=$ENTRIES" >> $GITHUB_OUTPUT
+            if [ "$ENTRIES" -lt 10 ]; then
+              echo "Only got $ENTRIES entries - website may not have data yet"
+              exit 1
+            fi
+          fi
+        timeout-minutes: 180
+        continue-on-error: true
       
       - name: Commit and push changes
+        if: steps.check.outputs.skip != 'true' && steps.scrape.outcome == 'success'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add panchanga-*.json
-          git diff --staged --quiet || git commit -m "🗓️ Auto-scraped panchanga data for ${{ steps.year.outputs.year }}"
+          git diff --staged --quiet || git commit -m "🗓️ Auto-scraped panchanga data for ${{ steps.year.outputs.year }} (${{ steps.scrape.outputs.entries }} entries)"
           git push
       
       - name: Summary
         run: |
-          echo "## Scraping Complete! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "## Panchanga Scraper Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Year:** ${{ steps.year.outputs.year }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Target Year:** ${{ steps.year.outputs.year }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "The panchanga data has been scraped and committed to the repository." >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check.outputs.skip }}" == "true" ]; then
+            echo "✅ Data already exists - skipped scraping" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.scrape.outcome }}" == "success" ]; then
+            echo "✅ Successfully scraped ${{ steps.scrape.outputs.entries }} entries" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Scraping failed or no data available yet - will retry tomorrow" >> $GITHUB_STEP_SUMMARY
+          fi
