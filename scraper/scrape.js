@@ -99,7 +99,38 @@ async function extractPanchanga(page) {
             if (lines[1]) nakshatra = lines[1];
         }
         
-        return { thithi, vasara, nakshatra };
+        // Extract Dharmashastra Details
+        let dharmashastra = null;
+
+        // Find the Dharmashastra Details section - look for h2 with "Dharmashastra Details"
+        const headers = document.querySelectorAll('h2, .mtitle h2');
+        for (const header of headers) {
+            if (header.textContent.includes('Dharmashastra Details')) {
+                // Get the parent container and find the text content after the header
+                const parent = header.closest('.mtitle') || header.parentElement;
+                if (parent) {
+                    // Get all text content excluding the header
+                    const allText = parent.textContent.replace('Dharmashastra Details', '').trim();
+                    if (allText && allText.length > 0) {
+                        dharmashastra = allText;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Alternative: look for div.mtitle which typically contains the dharmashastra info
+        if (!dharmashastra) {
+            const mtitle = document.querySelector('.mtitle');
+            if (mtitle) {
+                const text = mtitle.textContent.replace('Dharmashastra Details', '').trim();
+                if (text && text.length > 0) {
+                    dharmashastra = text;
+                }
+            }
+        }
+
+        return { thithi, vasara, nakshatra, dharmashastra };
     });
 }
 
@@ -171,13 +202,21 @@ async function scrapeYear(year) {
                 const rawData = await extractPanchanga(page);
                 
                 // Parse and normalize
-                panchangaData[dateStr] = {
+                const entry = {
                     thithi: parseThithi(rawData.thithi),
                     nakshatra: parseNakshatra(rawData.nakshatra),
                     vasara: parseVasara(rawData.vasara)
                 };
                 
-                console.log(`✓ ${panchangaData[dateStr].thithi}, ${panchangaData[dateStr].nakshatra}, ${panchangaData[dateStr].vasara}`);
+                // Only add dharmashastra if it exists and is not empty
+                if (rawData.dharmashastra && rawData.dharmashastra.trim().length > 0) {
+                    entry.dharmashastra = rawData.dharmashastra.trim();
+                }
+
+                panchangaData[dateStr] = entry;
+
+                const dharmaInfo = entry.dharmashastra ? ` | ${entry.dharmashastra.substring(0, 40)}...` : '';
+                console.log(`✓ ${entry.thithi}, ${entry.nakshatra}, ${entry.vasara}${dharmaInfo}`);
                 
                 // Save progress every 30 days
                 if (d.getDate() === 1 || d.getDate() === 15) {
