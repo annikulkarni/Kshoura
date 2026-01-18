@@ -703,22 +703,61 @@ async function findUpcomingDays(daysToCheck = 15) {
         }
     }
     
-    // Helper to render list
+    // Helper to render list with expandable details
     const renderList = (items, emptyMsg) => {
         if (items.length === 0) {
             return `<div class="no-data-text">${emptyMsg}</div>`;
         }
-        return items.map(item => `
-            <div class="upcoming-item ${item.rating.rating.class}">
-                <span class="upcoming-date">${formatShortDate(item.date)}</span>
-                <span class="upcoming-details">
-                    ${translateTerm(item.panchanga.thithi)} • ${translateTerm(item.panchanga.nakshatra)} • ${translateTerm(item.panchanga.vasara)}
-                </span>
-                <span class="upcoming-rating ${item.rating.rating.class}">
-                    ${t(item.rating.rating.name)}
-                </span>
-            </div>
-        `).join('');
+        return items.map((item, index) => {
+            const dateStr = formatDate(item.date);
+            const thithiStatus = item.rating.thithiMatch ? '✓' : '✗';
+            const nakshatraStatus = item.rating.nakshatraMatch ? '✓' : '✗';
+            const vasaraStatus = item.rating.vasaraMatch ? '✓' : '✗';
+            const thithiClass = item.rating.thithiMatch ? 'match' : 'no-match';
+            const nakshatraClass = item.rating.nakshatraMatch ? 'match' : 'no-match';
+            const vasaraClass = item.rating.vasaraMatch ? 'match' : 'no-match';
+
+            // Check for dharmashastra
+            const hasDharmashastra = item.panchanga.dharmashastra && item.panchanga.dharmashastra.trim().length > 0;
+            const dharmashastraHtml = hasDharmashastra ? `
+                <div class="detail-dharmashastra">
+                    🪔 ${translateDharmashastra(item.panchanga.dharmashastra)}
+                </div>
+            ` : '';
+
+            return `
+            <details class="upcoming-item-wrapper ${item.rating.rating.class}">
+                <summary class="upcoming-item ${item.rating.rating.class}">
+                    <span class="upcoming-date">${formatShortDate(item.date)}</span>
+                    <span class="upcoming-details">
+                        ${translateTerm(item.panchanga.thithi)} • ${translateTerm(item.panchanga.nakshatra)} • ${translateTerm(item.panchanga.vasara)}
+                    </span>
+                    <span class="upcoming-rating ${item.rating.rating.class}">
+                        ${t(item.rating.rating.name)}
+                    </span>
+                </summary>
+                <div class="day-details-panel">
+                    ${dharmashastraHtml}
+                    <div class="detail-grid">
+                        <div class="detail-item ${thithiClass}">
+                            <span class="detail-label">${t('thithi')}</span>
+                            <span class="detail-value">${translateTerm(item.panchanga.thithi)}</span>
+                            <span class="detail-status">${thithiStatus}</span>
+                        </div>
+                        <div class="detail-item ${nakshatraClass}">
+                            <span class="detail-label">${t('nakshatra')}</span>
+                            <span class="detail-value">${translateTerm(item.panchanga.nakshatra)}</span>
+                            <span class="detail-status">${nakshatraStatus}</span>
+                        </div>
+                        <div class="detail-item ${vasaraClass}">
+                            <span class="detail-label">${t('vasara')}</span>
+                            <span class="detail-value">${translateTerm(item.panchanga.vasara)}</span>
+                            <span class="detail-status">${vasaraStatus}</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        `}).join('');
     };
     
     upcomingList.innerHTML = renderList(goodDays, t('noData'));
